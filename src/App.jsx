@@ -1,32 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 export default function GonggamMobileLandingPage() {
-  const heroVariant = "B";
   const officialStoreImage =
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web_optimized_1-RMtgNRnu9HDVDbXgIIGbAWfsA45UP1.jpg";
   const consultationImage =
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web_optimized_2-Rq7RDUUXyqwO1RAg1zvaeHuepVhAfE.jpg";
   const onlineConsultationImage =
     "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/web_optimized_3-uLafN9BPsWaDf4OOJwpiwSYNBEZHwj.png";
-
-  const trustCards = [
-    {
-      title: "요금과 단말기 가격의 정확한 안내",
-      desc: "복잡한 지원 조건을 쉽게 설명하고, 실제 개통 가능한 기준으로만 상담합니다.",
-      icon: "₩",
-    },
-    {
-      title: "성지 가격이지만 더 믿을 수 있는 상담",
-      desc: "저렴하게 사고 싶은 고객이 찾는 이유를 과장 없이 실제 조건으로 보여드립니다.",
-      icon: "★",
-      featured: true,
-    },
-    {
-      title: "전산 기반 약속 상담과 신속한 개통",
-      desc: "상담 내용과 실제 진행이 다르지 않도록 정확하고 빠르게 도와드립니다.",
-      icon: "⌁",
-    },
-  ];
 
   const reviewCards = [
     {
@@ -111,39 +91,30 @@ export default function GonggamMobileLandingPage() {
     "휴대폰과 함께 한 번에 비교 가능",
   ];
 
-  const quickProofs = [
-    { label: "공식 인증 온라인샵", value: "LG U+" },
-    { label: "직영 매장 운영", value: "서울 10개+" },
-    { label: "재방문율 1위", value: "5년 연속" },
-  ];
-
-  const heroABadges = [
-    "오늘 상담 많은 온라인 채널",
-    "특가 문의 집중 구간",
-    "실제 개통 기준 안내",
-  ];
-
-  const heroBBadges = [
-    "비교 끝낸 고객 문의 집중",
-    "성지 가격 문의 다수",
-    "상담 후 바로 개통 가능",
-  ];
-
   const differences = [
     {
       no: "1",
       title: "본사 기준 신뢰 상담",
-      desc: `LG유플러스 공식 인증 온라인샵으로\n정확하고 검증된 내용만으로 상담`,
+      desc: `LG유플러스 공식 인증 온라인샵으로
+정확하고 검증된 내용만으로 상담`,
+      image: officialStoreImage,
+      alt: "LG유플러스 공식 인증 온라인샵 안내",
     },
     {
       no: "2",
       title: "1:1 맞춤 상담, 그대로 진행",
-      desc: `고객 상황에 최적화된 상담을 진행하며\n상담 내용과 동일한 조건으로 개통`,
+      desc: `고객 상황에 최적화된 상담을 진행하며
+상담 내용과 동일한 조건으로 개통`,
+      image: consultationImage,
+      alt: "1:1 맞춤 상담 안내",
     },
     {
       no: "3",
       title: "온·오프라인 매장 연계 상담",
-      desc: `온라인 개통 이후에도 오프라인 매장을 통한\n신뢰감 있는 사후관리와 약속 확인 가능`,
+      desc: `온라인 개통 이후에도 오프라인 매장을 통한
+신뢰감 있는 사후관리와 약속 확인 가능`,
+      image: onlineConsultationImage,
+      alt: "온오프라인 매장 맞춤 상담 안내",
     },
   ];
 
@@ -173,10 +144,33 @@ export default function GonggamMobileLandingPage() {
     "탁** 고객님 휴대폰 특가 문의 접수 완료",
   ];
 
+  const badgeCards = [
+    {
+      title: "LG유플러스 공식인증 온라인샵",
+      desc: "공식 인증 기반의 신뢰 상담",
+      icon: "✓",
+      iconClass: "bg-black text-white",
+      cardClass: "border-neutral-200 bg-white",
+    },
+    {
+      title: "서울 지역 10개 직영매장 운영",
+      desc: "오프라인 운영 경험이 만든 안정감",
+      icon: "10+",
+      iconClass: "bg-white text-amber-700 ring-1 ring-amber-200",
+      cardClass: "border-amber-200 bg-amber-50",
+    },
+    {
+      title: "5년 연속 고객 재방문율 1위",
+      desc: "다시 찾는 고객이 증명한 만족도",
+      icon: "★",
+      iconClass: "bg-pink-600 text-white shadow-sm",
+      cardClass: "border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50",
+    },
+  ];
+
   const [selectedReview, setSelectedReview] = useState(null);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [notificationIndex, setNotificationIndex] = useState(0);
-  const [showNotification, setShowNotification] = useState(true);
   const reviewScrollRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -196,18 +190,6 @@ export default function GonggamMobileLandingPage() {
       return;
     }
 
-    const mailSubject = `[공감모바일 상담신청] ${formData.name}`;
-    const mailBody = [
-      `이름: ${formData.name}`,
-      `연락처: ${formData.phone}`,
-      `원하는 모델/상품: ${formData.product || "미입력"}`,
-      "",
-      "문의 내용:",
-      formData.message || "미입력",
-      "",
-      `접수 시각: ${new Date().toLocaleString("ko-KR")}`,
-    ].join("\n");
-
     setIsSubmitting(true);
     setSubmitResult(null);
 
@@ -215,28 +197,10 @@ export default function GonggamMobileLandingPage() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          to: "gonggamcomms@gmail.com",
-        }),
+        body: JSON.stringify(formData),
       });
 
-      const rawText = await response.text();
-      const contentType = response.headers.get("content-type") || "";
-
-      let data = {};
-      if (contentType.includes("application/json")) {
-        try {
-          data = JSON.parse(rawText);
-        } catch {
-          data = { error: "JSON 응답 파싱에 실패했습니다." };
-        }
-      } else {
-        data = {
-          error: "서버가 JSON이 아닌 응답을 반환했습니다.",
-        };
-      }
-
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         throw new Error(data?.error || "전송에 실패했습니다.");
       }
@@ -365,23 +329,14 @@ export default function GonggamMobileLandingPage() {
   useEffect(() => {
     let isMounted = true;
     let cycleTimer;
-    let revealTimer;
 
     const scheduleNext = () => {
       const nextDelay = Math.floor(Math.random() * 47001) + 3000;
 
       cycleTimer = window.setTimeout(() => {
         if (!isMounted) return;
-
-        setShowNotification(false);
-
-        revealTimer = window.setTimeout(() => {
-          if (!isMounted) return;
-
-          setNotificationIndex((prev) => (prev + 1) % liveNotifications.length);
-          setShowNotification(true);
-          scheduleNext();
-        }, 350);
+        setNotificationIndex((prev) => (prev + 1) % liveNotifications.length);
+        scheduleNext();
       }, nextDelay);
     };
 
@@ -390,16 +345,15 @@ export default function GonggamMobileLandingPage() {
     return () => {
       isMounted = false;
       if (cycleTimer) window.clearTimeout(cycleTimer);
-      if (revealTimer) window.clearTimeout(revealTimer);
     };
   }, [liveNotifications.length]);
 
   return (
-    <div className="min-h-screen bg-[#fffafc] pb-24 text-sm leading-relaxed text-neutral-900 sm:text-[15px]">
-      <div className="w-full bg-black px-4 py-2 text-center text-[12px] font-black text-white sm:text-sm">
+    <div className="min-h-screen bg-[#fffafc] pb-24 text-[15px] text-neutral-900 md:text-[15.5px]">
+      <div className="w-full bg-black px-4 py-2 text-center text-sm font-black text-white">
         <span className="animate-pulse text-red-400">●</span>
         <span className="ml-2">실시간 상담 접수중</span>
-        <span className="ml-2 text-white/70">| 지금 문의하면 가장 좋은 조건 안내</span>
+        <span className="ml-2 text-white/70">| 예약 먼저/순서대로 회신</span>
       </div>
 
       <header className="sticky top-0 z-40 border-b border-pink-100 bg-white/95 backdrop-blur">
@@ -408,207 +362,37 @@ export default function GonggamMobileLandingPage() {
             <p className="text-xl font-black tracking-tight">
               <span className="text-pink-600">공감</span>모바일
             </p>
-            <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-400">Official Online Shop</p>
+            <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-400">
+              Official Online Shop
+            </p>
           </div>
           <div className="hidden items-center gap-3 md:flex">
-            <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="rounded-full bg-yellow-300 px-5 py-2.5 text-sm font-black text-black shadow-sm">
+            <a
+              href="https://pf.kakao.com/_WcxeAn/chat"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full bg-yellow-300 px-5 py-2.5 text-sm font-black text-black shadow-sm"
+            >
               카카오톡 빠른상담
             </a>
-            <a href="tel:010-8080-1887" className="rounded-full bg-[#111111] px-5 py-2.5 text-sm font-black text-white shadow-sm">
+            <a
+              href="tel:010-8080-1887"
+              className="rounded-full bg-[#ff1493] px-5 py-2.5 text-sm font-black text-white shadow-sm"
+            >
               친절한 전화상담
             </a>
           </div>
         </div>
       </header>
 
-      <section className="border-b border-pink-100 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-4 md:px-8">
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            <div className="rounded-[1.5rem] border border-neutral-200 bg-white px-5 py-4 shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-black text-lg font-black text-white">✓</div>
-                <div>
-                  <p className="text-sm font-black text-neutral-900">LG유플러스 공식인증 온라인샵</p>
-                  <p className="mt-1 text-xs text-neutral-500">공식 인증 기반의 신뢰 상담</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-[1.5rem] border border-amber-200 bg-amber-50 px-5 py-4 shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-sm font-black text-amber-700 ring-1 ring-amber-200">10+</div>
-                <div>
-                  <p className="text-sm font-black text-neutral-900">서울 지역 10개 직영매장 운영</p>
-                  <p className="mt-1 text-xs text-neutral-600">오프라인 운영 경험이 만든 안정감</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-[1.5rem] border border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50 px-5 py-4 shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-pink-600 text-lg font-black text-white shadow-sm">★</div>
-                <div>
-                  <p className="text-sm font-black text-neutral-900">5년 연속 고객 재방문율 1위</p>
-                  <p className="mt-1 text-xs text-neutral-600">다시 찾는 고객이 증명한 만족도</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(255,77,141,0.16),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(255,211,64,0.18),_transparent_26%),white]">
-        {heroVariant === "A" ? (
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:px-8 md:py-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-20">
-            <div>
-              <div className="inline-flex items-center rounded-full border border-pink-200 bg-pink-50 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-pink-600">
-                A안 · 공식인증 + 성지가격 강조형
-              </div>
-
-              <h1 className="mt-6 text-4xl font-black leading-[1.05] tracking-[-0.05em] text-neutral-900 md:text-6xl">
-                지금 가장
-                <br />
-                <span className="text-pink-600">저렴하게 살 수 있는</span>
-                <br />
-                휴대폰 상담 채널
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-base leading-8 text-neutral-600 md:text-xl md:leading-9">
-                공감모바일은 유플러스 공식 인증 온라인샵으로 서울 10개 직영매장을 기반으로,
-                <span className="font-black text-neutral-900"> 성지 가격의 매력</span>과
-                <span className="font-black text-neutral-900"> 믿을 수 있는 상담</span>을 함께 제공합니다.
-              </p>
-
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {heroABadges.map((item) => (
-                  <div key={item} className="rounded-[1.25rem] border border-pink-100 bg-white px-4 py-4 text-sm font-black text-neutral-700 shadow-sm">
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 grid gap-4 rounded-[2rem] border border-pink-100 bg-white p-5 shadow-sm sm:grid-cols-3 md:max-w-2xl">
-                {quickProofs.map((proof) => (
-                  <div key={proof.label} className="text-center">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-neutral-400">{proof.label}</p>
-                    <p className="mt-2 text-2xl font-black tracking-[-0.04em] text-neutral-900">{proof.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="rounded-full bg-yellow-300 px-7 py-4 text-center text-base font-black text-black shadow-lg shadow-yellow-200/60">
-                  카카오톡 빠른상담
-                </a>
-                <a href="tel:010-8080-1887" className="rounded-full bg-[#111111] px-7 py-4 text-center text-base font-black text-white shadow-lg">
-                  친절한 전화상담
-                </a>
-              </div>
-            </div>
-
-            <div className="rounded-[2rem] border border-pink-100 bg-white p-6 shadow-[0_25px_70px_rgba(255,93,162,0.14)] md:p-8">
-              <div className="rounded-[1.75rem] bg-gradient-to-br from-[#111111] to-[#4a4a4a] p-6 text-white">
-                <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-200">공감모바일의 약속</p>
-                <h2 className="mt-3 text-3xl font-black leading-tight tracking-[-0.04em]">
-                  성지 가격으로,
-                  <br />
-                  설명은 더 정확하게
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-white/80">
-                  공감모바일은 단순히 싸다고만 말하지 않습니다. 실제 개통 가능한 조건만 기준으로,
-                  고객이 헷갈리지 않게 명확하게 상담합니다.
-                </p>
-              </div>
-              <div className="mt-5 grid gap-4 md:grid-cols-3">
-                {trustCards.map((card) => (
-                  <div
-                    key={card.title}
-                    className={`rounded-[1.5rem] p-5 shadow-sm ring-1 ${card.featured ? "bg-pink-600 text-white ring-pink-600" : "bg-[#fff7fb] text-neutral-900 ring-pink-100"}`}
-                  >
-                    <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full text-lg font-black ${card.featured ? "bg-white/15 text-white" : "bg-white text-pink-600"}`}>
-                      {card.icon}
-                    </div>
-                    <p className="text-base font-black leading-6">{card.title}</p>
-                    <p className={`mt-3 text-sm leading-6 ${card.featured ? "text-white/85" : "text-neutral-600"}`}>{card.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="relative mx-auto max-w-7xl px-4 py-10 md:px-8 md:py-16 lg:py-20">
-            <div className="relative overflow-hidden rounded-[2rem] bg-black shadow-[0_30px_80px_rgba(0,0,0,0.28)] sm:rounded-[2.5rem]">
-              <img src={consultationImage} alt="공감모바일 메인 상담 이미지" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/35" />
-              <div className="relative grid min-h-[540px] gap-8 px-5 py-7 sm:min-h-[580px] sm:px-6 sm:py-8 md:px-10 md:py-10 lg:min-h-[620px] lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
-                <div className="flex flex-col justify-between">
-                  <div>
-                    <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-yellow-300 backdrop-blur">
-                      재고/정책 실시간 공유 가능
-                    </div>
-                    <p className="mt-5 inline-flex rounded-full bg-red-500 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white shadow-lg">
-                      오늘 상담 마감 전 빠른 확인
-                    </p>
-                    <h1 className="mt-6 text-[2.2rem] font-black leading-[1.02] tracking-[-0.06em] text-white sm:text-5xl md:text-6xl">
-                      비교 끝낸 고객이
-                      <br />
-                      마지막으로 찾는 곳,
-                      <br />
-                      <span className="text-yellow-300">공감모바일</span>
-                    </h1>
-                    <p className="mt-6 max-w-2xl text-base leading-8 text-white/85 md:text-xl md:leading-9">
-                      <span className="font-black text-white">성지 가격</span>만 찾다가 불안했던 고객도,
-                      <span className="font-black text-white"> 공식 인증</span>과
-                      <span className="font-black text-white"> 직영 매장 운영</span>을 보고 안심하고 상담받는 채널입니다.
-                    </p>
-                  </div>
-
-                  <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:max-w-3xl lg:grid-cols-3">
-                    {heroBBadges.map((item) => (
-                      <div key={item} className="rounded-[1.25rem] border border-white/15 bg-white/10 px-4 py-4 text-sm font-black text-white backdrop-blur">
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="w-full rounded-[1.75rem] border border-white/15 bg-white/95 p-5 text-neutral-900 shadow-2xl backdrop-blur sm:max-w-md lg:max-w-none lg:justify-self-end">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-pink-600">빠른 상담 시작</p>
-                  <h2 className="mt-3 text-2xl font-black leading-tight">
-                    지금 상담하면
-                    <br />
-                    가장 유리한 조건부터 확인
-                  </h2>
-                  <div className="mt-5 space-y-3">
-                    {quickProofs.map((proof) => (
-                      <div key={proof.label} className="flex items-center justify-between rounded-[1rem] bg-[#fff7fb] px-4 py-3 ring-1 ring-pink-100">
-                        <span className="text-sm font-black text-neutral-500">{proof.label}</span>
-                        <span className="text-lg font-black text-neutral-900">{proof.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-5 space-y-3">
-                    <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="block rounded-full bg-yellow-300 px-5 py-4 text-center text-base font-black text-black shadow-md">
-                      카카오톡 빠른상담
-                    </a>
-                    <a href="tel:010-8080-1887" className="block rounded-full bg-[#111111] px-5 py-4 text-center text-base font-black text-white shadow-md">
-                      친절한 전화상담
-                    </a>
-                  </div>
-                  <p className="mt-4 text-center text-xs font-black text-neutral-500">상담 후 조건 비교 → 개통 여부 결정 가능</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="rounded-[2.25rem] bg-gradient-to-r from-[#ff1493] via-[#ff2f95] to-[#ff4a93] px-6 py-8 text-white shadow-[0_22px_60px_rgba(255,20,147,0.25)] md:px-10 md:py-10">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.32em] text-white/90">Special Price Point</p>
-              <h2 className="mt-4 text-3xl font-black leading-[1.05] tracking-[-0.05em] sm:text-4xl md:text-5xl xl:text-6xl">
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-white/90">
+                Special Price Point
+              </p>
+              <h2 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] md:text-6xl">
                 저렴한 휴대폰 구매,
                 <br />
                 공감모바일 상담부터.
@@ -621,24 +405,36 @@ export default function GonggamMobileLandingPage() {
 
             <div className="space-y-4">
               <div className="flex items-center gap-4 rounded-[1.75rem] border border-white/45 bg-white px-5 py-5 text-neutral-900 shadow-lg">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-pink-600 text-xl font-black text-white">₩</div>
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-pink-600 text-xl font-black text-white">
+                  ₩
+                </div>
                 <div>
                   <p className="text-xl font-black">특가 문의 고객 집중</p>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600">다른 곳과 비교를 끝낸 고객 문의가 꾸준히 몰리고 있습니다.</p>
+                  <p className="mt-2 text-sm leading-6 text-neutral-600">
+                    다른 곳과 비교를 끝낸 고객 문의가 꾸준히 몰리고 있습니다.
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-[1.75rem] border border-white/20 bg-[#ff5ba2] px-5 py-5 text-white shadow-lg">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl font-black text-pink-600">✓</div>
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl font-black text-pink-600">
+                  ✓
+                </div>
                 <div>
                   <p className="text-xl font-black">믿을 수 있는 상담</p>
-                  <p className="mt-2 text-sm leading-6 text-white/90">저렴한 조건만이 아니라 실제 개통 과정까지 정확하게 안내합니다.</p>
+                  <p className="mt-2 text-sm leading-6 text-white/90">
+                    저렴한 조건만이 아니라 실제 개통 과정까지 정확하게 안내합니다.
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-[1.75rem] border border-white/15 bg-white/12 px-5 py-5 text-white shadow-lg backdrop-blur-sm">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/20 text-xl font-black text-white">★</div>
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/20 text-xl font-black text-white">
+                  ★
+                </div>
                 <div>
                   <p className="text-xl font-black">성지 가격 + 신뢰 상담의 만족감</p>
-                  <p className="mt-2 text-sm leading-6 text-white/90">저렴한 가격과 믿을 수 있는 상담을 동시에 원할 때 가장 적합한 채널입니다.</p>
+                  <p className="mt-2 text-sm leading-6 text-white/90">
+                    저렴한 가격과 믿을 수 있는 상담을 동시에 원할 때 가장 적합한 채널입니다.
+                  </p>
                 </div>
               </div>
             </div>
@@ -646,10 +442,85 @@ export default function GonggamMobileLandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
+      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(255,77,141,0.16),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(255,211,64,0.18),_transparent_26%),white]">
+          <div className="relative mx-auto max-w-7xl px-4 py-8 md:px-8 md:py-12 lg:py-14">
+            <div className="relative overflow-hidden rounded-[2.5rem] bg-black shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
+              <img src={consultationImage} alt="공감모바일 메인 상담 이미지" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/65 to-black/35" />
+              <div className="relative grid min-h-[540px] gap-6 px-6 py-7 md:min-h-[560px] md:px-10 md:py-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+                <div className="flex flex-col justify-center">
+                  <div>
+                    <div className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-yellow-300 backdrop-blur">
+                      재고/정책 실시간 공유 가능
+                    </div>
+                    <p className="mt-5 inline-flex rounded-full bg-red-500 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white shadow-lg">
+                      오늘 상담 마감 전 빠른 확인
+                    </p>
+                    <h1 className="mt-6 text-4xl font-black leading-[1.08] tracking-[-0.05em] text-white md:text-6xl md:leading-[1.04]">
+                      비교 끝낸 고객이
+                      <br />
+                      마지막으로 찾는 곳,
+                      <br />
+                      <span className="text-yellow-300">공감모바일</span>
+                    </h1>
+                  </div>
+                </div>
+
+                <div className="rounded-[2rem] border border-white/15 bg-white/95 p-5 text-neutral-900 shadow-2xl backdrop-blur lg:self-center">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-pink-600">빠른 상담 시작</p>
+                  <div className="mt-5 rounded-[1.5rem] border border-pink-100 bg-white/95 px-5 py-4 shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+                    <div className="flex items-start gap-3">
+                      <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-100 text-sm font-black text-pink-600">
+                        ●
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-pink-600">실시간 접수 알림</p>
+                        <p className="mt-1 text-[13px] font-black leading-6 text-neutral-900 md:text-sm">
+                          {liveNotifications[notificationIndex]}
+                        </p>
+                        <p className="mt-1 text-[11px] text-neutral-500 md:text-xs">지금 문의하면 빠르게 상담 가능합니다</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-5 space-y-3">
+                    <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="block rounded-full bg-yellow-300 px-5 py-4 text-center text-base font-black text-black shadow-md">
+                      카카오톡 빠른상담
+                    </a>
+                    <a href="tel:010-8080-1887" className="block rounded-full bg-[#ff1493] px-5 py-4 text-center text-base font-black text-white shadow-md">
+                      친절한 전화상담
+                    </a>
+                  </div>
+                  <p className="mt-4 text-center text-xs font-black text-neutral-500">상담 후 조건 비교 → 개통 여부 결정 가능</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-4 md:px-8 md:pb-0">
+          <div className="grid gap-3 md:grid-cols-3">
+            {badgeCards.map((card) => (
+              <div key={card.title} className={`rounded-[1.5rem] border px-6 py-5 shadow-sm md:px-7 md:py-5 ${card.cardClass}`}>
+                <div className="flex items-center gap-4">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full text-[1.15rem] font-black md:h-[3.15rem] md:w-[3.15rem] md:text-[1.22rem] ${card.iconClass}`}>
+                    {card.icon}
+                  </div>
+                  <div>
+                    <p className="text-[1rem] font-black leading-[1.35] text-neutral-900 md:text-[1.14rem]">{card.title}</p>
+                    <p className="mt-1.5 text-[0.86rem] leading-[1.45] text-neutral-500 md:text-[0.95rem]">{card.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="text-center">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-600">Real Reviews</p>
-          <h2 className="mt-3 text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
             믿고 개통하신
             <br />
             고객의 리얼 리뷰
@@ -676,7 +547,7 @@ export default function GonggamMobileLandingPage() {
           <div ref={reviewScrollRef} className="overflow-x-auto pb-4" style={{ scrollbarWidth: "none" }}>
             <div className="flex min-w-max gap-6 pr-4">
               {reviewCards.map((card, idx) => (
-                <button key={card.author + idx} type="button" onClick={() => setSelectedReview(card)} className="w-[280px] sm:w-[320px] flex-none overflow-hidden rounded-[2rem] border border-neutral-200 bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <button key={card.author + idx} type="button" onClick={() => setSelectedReview(card)} className="w-[320px] flex-none overflow-hidden rounded-[2rem] border border-neutral-200 bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-black uppercase tracking-[0.18em] text-neutral-400">실제 고객 리뷰 {idx + 1}</p>
@@ -743,7 +614,7 @@ export default function GonggamMobileLandingPage() {
         <div className="mx-auto max-w-6xl px-4 md:px-8">
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-600">Compare</p>
-            <h2 className="mt-3 text-3xl font-black sm:text-4xl md:text-5xl">타 업체와의 비교</h2>
+            <h2 className="mt-3 text-3xl font-black md:text-5xl">타 업체와의 비교</h2>
             <p className="mt-4 text-neutral-500">실제 진행 조건은 고객 상황과 시점에 따라 달라질 수 있으며, 상담 시 정확히 안내드립니다.</p>
           </div>
 
@@ -781,19 +652,18 @@ export default function GonggamMobileLandingPage() {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid items-start gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
             <div className="max-w-4xl px-2 py-2 md:px-0">
-              <h2 className="text-3xl font-black leading-[1.08] tracking-[-0.06em] text-neutral-900 sm:text-4xl md:text-[3.2rem] lg:text-[3.6rem]">
-                인터넷+TV 동시상담
-                <br />
-                <span className="text-[#ff1493]">60만원 현금 지급</span>
+              <h2 className="text-[1.65rem] font-black leading-[1.18] tracking-[-0.04em] text-neutral-900 md:text-[2.8rem] md:leading-[1.16]">
+                <span className="block">인터넷+TV 동시상담</span>
+                <span className="mt-2 block text-[#ff1493] md:mt-3">60만원 현금 지급</span>
               </h2>
 
-              <div className="mt-8 text-3xl font-black leading-[1.1] tracking-[-0.06em] text-[#10c44c] sm:text-4xl md:mt-10 md:text-[3.1rem] lg:text-[3.6rem]">
+              <div className="mt-10 text-[2.15rem] font-black leading-[1.14] tracking-[-0.04em] text-[#10c44c] md:text-[3.4rem] md:leading-[1.12]">
                 결합 상담으로
                 <br />
                 요금할인 추가!!
               </div>
 
-              <div className="mt-8 space-y-3 text-lg font-medium leading-[1.8] text-neutral-600 sm:text-xl md:mt-10 md:text-[1.7rem] md:leading-[1.75] lg:text-[2rem]">
+              <div className="mt-10 space-y-3 text-[1.15rem] font-medium leading-[1.75] text-neutral-600 md:text-[1.9rem] md:leading-[1.7]">
                 <p>가계 통신비 전체 절감 컨설팅</p>
                 <p>개통 즉시 현금 지급과 요금 할인 추가</p>
               </div>
@@ -801,8 +671,8 @@ export default function GonggamMobileLandingPage() {
 
             <div className="mt-2 space-y-5 lg:w-full lg:max-w-[760px] lg:justify-self-end lg:pt-6">
               {bundleBenefits.map((item) => (
-                <div key={item} className="w-full rounded-[1.5rem] border border-[#dddddd] bg-white px-5 py-6 shadow-[0_4px_16px_rgba(0,0,0,0.08)] sm:rounded-[2rem] sm:px-6 sm:py-7 md:min-h-[116px] md:px-10 md:py-9">
-                  <p className="text-xl font-black tracking-[-0.05em] text-neutral-900 sm:text-2xl md:text-[2rem] lg:text-[2.25rem]">{item}</p>
+                <div key={item} className="w-full rounded-[2rem] border border-[#dddddd] bg-white px-6 py-7 shadow-[0_4px_16px_rgba(0,0,0,0.08)] md:min-h-[116px] md:px-10 md:py-9">
+                  <p className="text-[1.55rem] font-black tracking-[-0.05em] text-neutral-900 md:text-[2.25rem]">{item}</p>
                 </div>
               ))}
             </div>
@@ -813,7 +683,7 @@ export default function GonggamMobileLandingPage() {
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-8">
         <div className="text-center">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-pink-600">Differentiation</p>
-          <h2 className="mt-3 text-3xl font-black sm:text-4xl md:text-5xl">
+          <h2 className="mt-3 text-3xl font-black md:text-5xl">
             <span className="text-pink-600">공감모바일</span>만의
             <br />
             <span className="text-pink-600">차별점</span> 3가지
@@ -821,7 +691,7 @@ export default function GonggamMobileLandingPage() {
         </div>
 
         <div className="mt-10 space-y-6">
-          {differences.map((item, idx) => (
+          {differences.map((item) => (
             <div key={item.no} className="overflow-hidden rounded-[2rem] border border-neutral-200 bg-white shadow-sm">
               <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
                 <div className="flex flex-col justify-center p-8 md:p-10">
@@ -830,9 +700,7 @@ export default function GonggamMobileLandingPage() {
                   <p className="mt-5 whitespace-pre-line text-base leading-8 text-neutral-600 md:text-lg">{item.desc}</p>
                 </div>
                 <div className="relative min-h-[280px] bg-neutral-100 lg:min-h-[360px]">
-                  {idx === 0 && <img src={officialStoreImage} alt="LG유플러스 공식 인증 온라인샵 안내" className="h-full w-full object-cover" />}
-                  {idx === 1 && <img src={consultationImage} alt="1:1 맞춤 상담 안내" className="h-full w-full object-cover" />}
-                  {idx === 2 && <img src={onlineConsultationImage} alt="온오프라인 매장 맞춤 상담 안내" className="h-full w-full object-cover" />}
+                  <img src={item.image} alt={item.alt} className="h-full w-full object-cover" />
                 </div>
               </div>
             </div>
@@ -844,24 +712,24 @@ export default function GonggamMobileLandingPage() {
         <div className="rounded-[2rem] border border-pink-100 bg-white p-8 shadow-sm md:p-10">
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-[0.2em] text-pink-600">Why Choose Gonggam</p>
-            <h2 className="mt-3 text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
+            <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">
               고객이 <span className="text-pink-600">온라인</span>에서
               <br />
               <span className="text-pink-600">공감</span>을 찾는 이유
             </h2>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100">
-              <p className="text-lg font-black text-neutral-900">01</p>
-              <p className="mt-3 text-lg font-black leading-7">특가 상담이 가장 활발한 곳</p>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100 md:p-7">
+              <p className="text-[1.9rem] font-black leading-none tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">01</p>
+              <p className="mt-4 text-[1.28rem] font-black leading-[1.45] text-neutral-900 md:text-[1.55rem] md:leading-[1.5]">특가 상담이 가장 활발한 곳</p>
             </div>
-            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100">
-              <p className="text-lg font-black text-neutral-900">02</p>
-              <p className="mt-3 text-lg font-black leading-7">실질적인 혜택만 제공</p>
+            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100 md:p-7">
+              <p className="text-[1.9rem] font-black leading-none tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">02</p>
+              <p className="mt-4 text-[1.28rem] font-black leading-[1.45] text-neutral-900 md:text-[1.55rem] md:leading-[1.5]">실질적인 혜택만 제공</p>
             </div>
-            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100">
-              <p className="text-lg font-black text-neutral-900">03</p>
-              <p className="mt-3 text-lg font-black leading-7">성지가격 + 더 높은 신뢰</p>
+            <div className="rounded-[1.5rem] bg-[#fff7fb] p-6 ring-1 ring-pink-100 md:p-7">
+              <p className="text-[1.9rem] font-black leading-none tracking-[-0.04em] text-neutral-900 md:text-[2.4rem]">03</p>
+              <p className="mt-4 text-[1.28rem] font-black leading-[1.45] text-neutral-900 md:text-[1.55rem] md:leading-[1.5]">성지가격 + 더 높은 신뢰</p>
             </div>
           </div>
         </div>
@@ -869,9 +737,9 @@ export default function GonggamMobileLandingPage() {
 
       <section className="bg-neutral-900 py-16 text-white" id="contact">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-10">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr]">
             <div>
-              <h2 className="text-3xl font-black leading-tight sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-black leading-tight md:text-5xl">
                 친절한 상담
                 <br />
                 정확한 안내
@@ -880,7 +748,7 @@ export default function GonggamMobileLandingPage() {
                 휴대폰, 인터넷, IPTV까지 한 번에 문의하실 수 있습니다. 공감모바일이 고객 상황에 맞는 가장 합리적인 정보와 서비스를 기준으로 순서대로 안내해드립니다.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <a href="tel:010-8080-1887" className="rounded-full bg-pink-600 px-7 py-4 text-center text-sm font-black text-white">친절한 전화 상담</a>
+                <a href="tel:010-8080-1887" className="rounded-full bg-[#ff1493] px-7 py-4 text-center text-sm font-black text-white">친절한 전화 상담</a>
                 <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="rounded-full bg-yellow-300 px-7 py-4 text-center text-sm font-black text-black">카카오톡 빠른상담</a>
               </div>
             </div>
@@ -910,19 +778,19 @@ export default function GonggamMobileLandingPage() {
           <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5">
             <div className="grid md:grid-cols-2">
               <div className="border-b border-white/10 md:border-b-0 md:border-r md:border-white/10">
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">법인명</div><div className="px-4 py-4 text-white/80 sm:px-5">주식회사 공감커뮤니케이션즈</div></div>
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">대표</div><div className="px-4 py-4 text-white/80 sm:px-5">하광희</div></div>
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">법인등록번호</div><div className="px-4 py-4 text-white/80 break-all sm:px-5">110111-7896595</div></div>
+                <div className="grid grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">법인명</div><div className="px-5 py-4 text-white/80">주식회사 공감커뮤니케이션즈</div></div>
+                <div className="grid grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">대표</div><div className="px-5 py-4 text-white/80">하광희</div></div>
+                <div className="grid grid-cols-[120px_1fr] text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">법인등록번호</div><div className="px-5 py-4 text-white/80">110111-7896595</div></div>
               </div>
               <div>
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">대표 번호</div><div className="px-4 py-4 text-white/80 sm:px-5">010-8080-1887</div></div>
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">사업자번호</div><div className="px-4 py-4 text-white/80 sm:px-5">199-86-02199</div></div>
-                <div className="grid grid-cols-[96px_1fr] sm:grid-cols-[120px_1fr] text-sm"><div className="bg-white/5 px-4 py-4 font-black text-white/90 sm:px-5">주소</div><div className="px-4 py-4 text-white/80 break-words sm:px-5">서울특별시 강북구 도봉로 328 가든타워 1604호</div></div>
+                <div className="grid grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">대표 번호</div><div className="px-5 py-4 text-white/80">010-8080-1887</div></div>
+                <div className="grid grid-cols-[120px_1fr] border-b border-white/10 text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">사업자번호</div><div className="px-5 py-4 text-white/80">199-86-02199</div></div>
+                <div className="grid grid-cols-[120px_1fr] text-sm"><div className="bg-white/5 px-5 py-4 font-black text-white/90">주소</div><div className="px-5 py-4 text-white/80">서울특별시 강북구 도봉로 328 가든타워 1604호</div></div>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-4 text-sm text-white/75 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 text-sm text-white/75 md:grid-cols-2">
             {stores.map((store) => (
               <div key={store.name} className="space-y-1">
                 <p className="font-black text-white/90">▶ {store.name}</p>
@@ -968,21 +836,10 @@ export default function GonggamMobileLandingPage() {
         </div>
       )}
 
-      <div className={`fixed bottom-24 left-3 right-3 z-50 max-w-[320px] rounded-[1.25rem] border border-pink-100 bg-white/95 px-4 py-3 shadow-[0_16px_35px_rgba(0,0,0,0.12)] backdrop-blur transition-all duration-300 sm:left-4 sm:right-auto ${showNotification ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}>
-        <div className="flex items-start gap-3">
-          <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pink-100 text-sm font-black text-pink-600">●</div>
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-pink-600">실시간 접수 알림</p>
-            <p className="mt-1 text-sm font-black leading-6 text-neutral-900">{liveNotifications[notificationIndex]}</p>
-            <p className="mt-1 text-xs text-neutral-500">지금 문의하면 빠르게 상담 가능합니다</p>
-          </div>
-        </div>
-      </div>
-
       <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-pink-100 bg-white/95 px-4 py-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-7xl gap-3">
-          <a href="tel:010-8080-1887" className="flex-1 rounded-full bg-[#111111] px-4 py-3 text-center text-sm font-black text-white shadow-lg sm:text-base">전화상담</a>
-          <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="flex-1 rounded-full bg-yellow-300 px-4 py-3 text-center text-sm font-black text-black shadow-lg sm:text-base">카카오 상담</a>
+          <a href="tel:010-8080-1887" className="flex-1 rounded-full bg-[#ff1493] px-4 py-3 text-center text-sm font-black text-white shadow-lg">전화상담</a>
+          <a href="https://pf.kakao.com/_WcxeAn/chat" target="_blank" rel="noreferrer" className="flex-1 rounded-full bg-yellow-300 px-4 py-3 text-center text-sm font-black text-black shadow-lg">카카오 상담</a>
         </div>
       </div>
     </div>
